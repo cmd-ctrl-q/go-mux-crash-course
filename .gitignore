@@ -1,5 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/go,firebase
-# Edit at https://www.toptal.com/developers/gitignore?templates=go,firebase
+# Edit at https://www.toptal.com/developers/gitignore?templates=go,firebase 
+
+### Peronal ### 
+images 
+**/README.md
 
 ### Firebase ###
 .idea

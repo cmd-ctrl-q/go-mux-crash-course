@@ -2,27 +2,33 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/cmd-ctrl-q/go-mux-crash-course/repository"
+
+	"github.com/cmd-ctrl-q/go-mux-crash-course/controller"
+	router "github.com/cmd-ctrl-q/go-mux-crash-course/http"
+	"github.com/cmd-ctrl-q/go-mux-crash-course/service"
 )
 
 var (
-	port = ":8080"
+	postRepository repository.PostRepository = repository.NewFirestoreRepository()       // database
+	postService    service.PostService       = service.NewPostService(postRepository)    // service
+	postController controller.PostController = controller.NewPostController(postService) // controller
+	httpRouter     router.Router             = router.NewChiRouter()                     // router / server / mux
+	// httpRouter     router.Router             = router.NewMuxRouter() // old code router
 )
 
 func main() {
-	router := mux.NewRouter() // create new instance of a router
+	const port string = ":8080"
 
-	router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		// w.Write([]byte("up and running..."))
+	httpRouter.GET("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Up and running...")
 	})
 
-	router.HandleFunc("/posts", getAllPosts).Methods("GET")
-	router.HandleFunc("/posts", addPost).Methods("POST")
+	httpRouter.GET("/posts", postController.GetAllPosts)
+	httpRouter.POST("/posts", postController.AddPost)
 
-	fmt.Println("Server listening on port ", port)
-	log.Fatal(http.ListenAndServe(":8080", router))
+	httpRouter.SERVE(port)
+
 }
