@@ -13,15 +13,6 @@ type postgresRepo struct{}
 // NewPostgresRepository ...
 func NewPostgresRepository() PostRepository {
 
-	// DB, err = sql.Open("postgres", "./posts.db")
-	// connect to DB
-	// DB, err = sql.Open("postgres", "postgres://postgres:password@localhost/muxdb?sslmode=disable")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer DB.Close()
-
-	// delete table in database
 	_, err := config.DB.Exec("DROP TABLE posts;")
 
 	sqlStmt := `CREATE TABLE posts (id BIGINT PRIMARY KEY NOT NULL, title TEXT NOT NULL, txt TEXT); DELETE FROM posts;`
@@ -90,4 +81,31 @@ func (*postgresRepo) FindAll() ([]entity.Post, error) {
 		return nil, err
 	}
 	return posts, nil
+}
+
+func (*postgresRepo) FindOne(id int64) (*entity.Post, error) {
+
+	// find the row with matching id as the param id
+	row := config.DB.QueryRow("SELECT * FROM posts WHERE id = $1", id)
+
+	// create post object
+	var post entity.Post
+
+	// scan the columns of the row and store in post attributes
+	err := row.Scan(&post.ID, &post.Title, &post.Text)
+	if err != nil {
+		return nil, err
+	}
+
+	return &post, nil
+}
+
+func (*postgresRepo) Delete(post *entity.Post) error {
+
+	// _, err := config.DB.Exec("INSERT INTO posts (id, title, txt) VALUES ($1, $2, $3);", post.ID, post.Title, post.Text)
+	_, err := config.DB.Exec("DELETE FROM posts WHERE id = $1", post.ID)
+	if err != nil {
+		return err
+	}
+	return nil
 }

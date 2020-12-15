@@ -6,4 +6,6 @@ import "github.com/cmd-ctrl-q/go-mux-crash-course/entity"
 type PostRepository interface {
 	Save(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
+	FindOne(id int64) (*entity.Post, error)
+	Delete(post *entity.Post) error
 }
