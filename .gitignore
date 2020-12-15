@@ -3,7 +3,9 @@
 
 ### Other ### 
 images 
-**/README.md
+**/README.md 
+.vscode 
+config/
 
 ### Firebase ###
 .idea
