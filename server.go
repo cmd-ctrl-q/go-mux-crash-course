@@ -12,14 +12,15 @@ import (
 )
 
 var (
-	// postRepository repository.PostRepository = repository.NewSQLiteRepository("posts")          // database
-	// postRepository repository.PostRepository = repository.NewPostgresRepository()        // database
-	postRepository repository.PostRepository = repository.NewFirestoreRepository()    // database
+	// postRepository repository.PostRepository = repository.NewSQLiteRepository("posts")		// sqlite
+	// postRepository repository.PostRepository = repository.NewPostgresRepository() 			// postgres
+	// postRepository repository.PostRepository = repository.NewFirestoreRepository()    		// firestore
+	postRepository repository.PostRepository = repository.NewDynamoDBRepository()     // dynamodb
 	postService    service.PostService       = service.NewPostService(postRepository) // service
-	postCache      cache.postCache           = cache.NewRedisCache("localhost:6379", 1, 10)
+	postCache      cache.PostCache           = cache.NewRedisCache("localhost:6379", 1, 10)
 	postController controller.PostController = controller.NewPostController(postService, postCache) // controller
 	httpRouter     router.Router             = router.NewMuxRouter()                                // router / server / mux
-	// httpRouter     router.Router             = router.NewChiRouter()                  	// router / server / mux
+	// httpRouter     router.Router             = router.NewChiRouter()                  			// router / server / mux
 )
 
 func main() {
@@ -34,6 +35,6 @@ func main() {
 	httpRouter.POST("/posts", postController.AddPost)
 
 	// httpRouter.SERVE(PORT)
-	httpRouter.SERVE(os.Getenv("PORT"))
+	httpRouter.SERVE(":" + os.Getenv("PORT"))
 
 }

@@ -13,7 +13,7 @@ type PostService interface {
 	Validate(post *entity.Post) error
 	Create(post *entity.Post) (*entity.Post, error)
 	FindAll() ([]entity.Post, error)
-	FindByID(id int64) (*entity.Post, error)
+	FindByID(id string) (*entity.Post, error)
 }
 
 // implement interface
@@ -52,6 +52,6 @@ func (s *service) FindAll() ([]entity.Post, error) {
 	return postRepo.FindAll()
 }
 
-func (s *service) FindByID(id int64) (*entity.Post, error) {
+func (s *service) FindByID(id string) (*entity.Post, error) {
 	return postRepo.FindOne(id)
 }

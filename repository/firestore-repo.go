@@ -83,7 +83,7 @@ func (r *repo) FindAll() ([]entity.Post, error) {
 }
 
 // FindOne ...
-func (r *repo) FindOne(id int64) (*entity.Post, error) {
+func (r *repo) FindOne(id string) (*entity.Post, error) {
 	return nil, nil
 }
 

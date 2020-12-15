@@ -102,7 +102,7 @@ func (*sqliteRepo) FindAll() ([]entity.Post, error) {
 }
 
 // FindOne ...
-func (*sqliteRepo) FindOne(id int64) (*entity.Post, error) {
+func (*sqliteRepo) FindOne(id string) (*entity.Post, error) {
 
 	db, err := sql.Open("sqlite3", "./posts.db")
 	if err != nil {

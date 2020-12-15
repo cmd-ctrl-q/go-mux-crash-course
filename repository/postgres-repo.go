@@ -83,7 +83,7 @@ func (*postgresRepo) FindAll() ([]entity.Post, error) {
 	return posts, nil
 }
 
-func (*postgresRepo) FindOne(id int64) (*entity.Post, error) {
+func (*postgresRepo) FindOne(id string) (*entity.Post, error) {
 
 	// find the row with matching id as the param id
 	row := config.DB.QueryRow("SELECT * FROM posts WHERE id = $1", id)

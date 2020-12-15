@@ -3,7 +3,6 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/cmd-ctrl-q/go-mux-crash-course/cache"
@@ -63,8 +62,7 @@ func (*controller) GetPostByID(w http.ResponseWriter, r *http.Request) {
 	// cache: check/get data from the postID
 	var post *entity.Post = postCache.Get(postID)
 	if post == nil {
-		n, _ := strconv.ParseInt(postID, 10, 64)
-		post, err := postService.FindByID(n)
+		post, err := postService.FindByID(postID)
 		if err != nil {
 			// cannot find id in db
 			w.WriteHeader(http.StatusNotFound)
