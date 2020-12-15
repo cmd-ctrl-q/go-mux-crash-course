@@ -1,7 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/go,firebase
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,firebase 
 
-### Peronal ### 
+### Other ### 
 images 
 **/README.md
 
@@ -33,6 +33,16 @@ images
 
 ### Go Patch ###
 /vendor/
-/Godeps/
+/Godeps/ 
 
-# End of https://www.toptal.com/developers/gitignore/api/go,firebase
+# End of https://www.toptal.com/developers/gitignore/api/go,firebase 
+
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+
+# End of https://www.toptal.com/developers/gitignore/api/database

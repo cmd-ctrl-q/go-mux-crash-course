@@ -8,6 +8,7 @@ import (
 	"github.com/cmd-ctrl-q/go-mux-crash-course/repository"
 )
 
+// PostService interface
 type PostService interface {
 	Validate(post *entity.Post) error
 	Create(post *entity.Post) (*entity.Post, error)

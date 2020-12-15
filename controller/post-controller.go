@@ -16,11 +16,13 @@ var (
 	postService service.PostService // new, now added to NewPostController
 )
 
+// PostController ...
 type PostController interface {
 	GetAllPosts(w http.ResponseWriter, r *http.Request)
 	AddPost(w http.ResponseWriter, r *http.Request)
 }
 
+// NewPostController ...
 func NewPostController(service service.PostService) PostController {
 	postService = service
 	return &controller{}
