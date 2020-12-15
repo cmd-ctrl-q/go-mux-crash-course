@@ -1,11 +1,21 @@
 # Created by https://www.toptal.com/developers/gitignore/api/go,firebase
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,firebase 
 
-### Other ### 
+### Misc ### 
 images 
 **/README.md 
-.vscode 
 config/
+
+### vscode 
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
 
 ### Firebase ###
 .idea
